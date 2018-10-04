@@ -1,9 +1,11 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+filetype plugin on
 set nocompatible "不兼容vi
 set termguicolors "24位真彩
 set title "显示标题
-set mouse=a "启用鼠标
+"set mouse=a "启用鼠标
+set number
 set belloff=all "不发出滴滴声
 set ttimeoutlen=100 "等待时间
 set history=1024 "历史
@@ -22,7 +24,7 @@ set listchars=tab:\|\ ,trail:· "空白字符
 set fillchars=vert:·,fold:- "分割线
 set encoding=utf-8 "编码
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,latin1 "编码解析顺序
-
+set number
 set tabstop=4 "tab的大小
 set softtabstop=4 "一次删除多少空格
 set shiftwidth=4 "缩进大小
@@ -47,6 +49,22 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
+"Plguin area
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'jstemmer/gotags'
+Plugin 'fatih/vim-go'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-fugitive'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'wincent/wincent.git'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'h2non/filetype'
+Plugin 'Blackrush/vim-gocode'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'jiangmiao/auto-pairs'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -77,17 +95,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-"Plguin area
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'jstemmer/gotags'
-Plugin 'fatih/vim-go'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-syntastic/syntastic'
-PluginInstall 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-fugitive'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'wincent/wincent.git'
 
 
 
@@ -125,7 +132,8 @@ let g:tagbar_type_go = {
 nmap <F8> :TagbarToggle<CR>
 
 "nerdtree config
-autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+"autocmd vimenter * NERDTree
 
 "syntastic config
 set statusline+=%#warningmsg#
@@ -143,3 +151,41 @@ let g:ycm_python_binary_path = 'python'  "jedi模块所在python解释器路径
 let g:ycm_seed_identifiers_with_syntax = 1  "开启使用语言的一些关键字查询
 let g:ycm_autoclose_preview_window_after_completion=1 "补全后自动关闭预览窗口
 let g:ycm_auto_trigger = 1   "turn on
+
+"gocode config
+imap <F6> <C-x><C-o>
+
+
+"gotag config
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+	\ }
+
+"syntasic config
+"Govim config
+nmap <F5> :w<CR>:!go run %<CR>
+imap <F5> <ESC>:w<CR>:!go run %<CR>
