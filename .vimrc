@@ -42,6 +42,22 @@ autocmd Filetype *
 	\		setlocal omnifunc=syntaxcomplete#Complete |
 	\	endif
 
+"set leader
+let mapleader=" "
+
+"创建空行而不进入插入模式
+nmap go o<Esc>
+nmap gO O<Esc>
+
+"系统剪切板
+"nmap <Leader>p "+p
+"nmap <Leader>y "+y
+"nmap <Leader>d "+d
+"vmap <Leader>p "+p
+"vmap <Leader>y "+y
+"vmap <Leader>d "+d
+
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -65,6 +81,7 @@ Plugin 'h2non/filetype'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdcommenter'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -189,3 +206,31 @@ let g:tagbar_type_go = {
 "Govim config
 nmap <F5> :w<CR>:!go run %<CR>
 imap <F5> <ESC>:w<CR>:!go run %<CR>
+
+"scrooloose/nerdcommenter config
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims=1
+"
+" " Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs=1
+"
+"" Align line-wise comment delimiters flush left instead of following code
+"indentation
+let g:NERDDefaultAlign='left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java=1
+"
+" " Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters={ 'c': { 'left': '/**','right': '*/'  }  }
+"
+"" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines=1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace=1
+
+"" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines=1"
+
+
